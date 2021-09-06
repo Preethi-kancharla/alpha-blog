@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     end
 
     def show
-        
+        @articles = @user.articles
     end
 
     def edit
@@ -44,7 +44,9 @@ class UsersController < ApplicationController
 
     def destroy
         @user.destroy
-        session[:user_id] = nil if @user == curent_user
+        if @user == current_user
+            session[:user_id] = nil
+        end
         flash[:notice] = "Account and all associated articles are successfully deleted"
         redirect_to articles_path
 
@@ -61,7 +63,6 @@ class UsersController < ApplicationController
         def set_user
             begin
                 @user = User.find(params[:id])
-                @articles = @user.articles
             rescue ActiveRecord::RecordNotFound
                 render :json => "404 page not found"
             end
