@@ -5,7 +5,8 @@ class Category < ApplicationRecord
     validates_uniqueness_of :name
 
     def self.get_category_by_name(name)
-        category = all.where("name = ?", name).exists? ? find_by_name(name) : false
+        #category = all.where("name Like = ?", name).exists? ? find_by_name(name) : false
+        category = all.where("lower(name) LIKE :search", search: "%#{name}%").first
     end
 
 end
