@@ -56,9 +56,13 @@
 
         <% end %>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        
+
+        <%= form_with(url: search_path, method: "get", local: true, class: "form-inline my-2 my-lg-0" ) do |form|%>
+            <%= form.text_field :category_name, placeholder: "Search category name", class: "form-control mr-sm-2"%>
+            <%= form.submit "Submit" , class: "btn btn-outline-success my-2 my-sm-0" %>
+        <% end %>
+        
+
     </div>
 </nav>  
