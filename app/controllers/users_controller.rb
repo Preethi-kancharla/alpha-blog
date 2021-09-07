@@ -21,10 +21,14 @@ class UsersController < ApplicationController
 
     def create
         @user = User.new(user_params)
+        #byebug
         if @user.save
-            session[:user_id] = @user.id
-            flash[:notice] = "Welcome to the Alpha Blog #{@user.username}, you have successfully signed up"
-            redirect_to articles_path
+            UserMailer.account_activation(@user).deliver_now
+            flash[:info] = "Please check your email to activate your account."
+            redirect_to root_url
+            #session[:user_id] = @user.id
+            #flash[:notice] = "Welcome to the Alpha Blog #{@user.username}, you have successfully signed up"
+            #redirect_to articles_path
         else
             render 'new'
     

@@ -10,5 +10,5 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
   resources :categories, except: [ :destroy ]
   get "search", to: "search#search", as: :search
-  
+  resources :account_activations, only: [:edit]
 end
